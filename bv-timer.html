@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> Custom Timer </title>
+	<script type="text/javascript" src="bv-timer.js"></script>
+	<script type="text/javascript">
+		function Grow () {
+			var elem = document.querySelector("#num");
+			elem.innerHTML = elem.innerHTML * 1 + 1;
+		}
+
+		function Play() {
+			var timer = document.getElementById('timer');
+			timer.play();
+		}
+
+		function Pause() {
+			var timer = document.getElementById('timer');
+			timer.pause();
+		}
+	</script>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<bv-timer id="timer" value="30" interval="5" onInterval="Grow()" onTimeOut="this.value = 100;alert('Time is up')" autostart></bv-timer>
+	<br><br>
+	Every 5 seconds, this number will be increased: <span id="num">0</span>
+	<br><br>
+	<button onclick="Play()"> play </button> <br><br>
+	<button onclick="Pause()"> pause </button>
+</body>
+</html>
