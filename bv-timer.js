@@ -1,21 +1,8 @@
 (function() {
-	var style = `
-		<style>
-			bv-timer{
-				display: inline-block;
-				height: auto;
-				width: auto;
-				box-sizing: border-box;
-				font-size: 30px;
-				border: 2px solid black;
-				text-align: center;
-				background-color: white;
-				padding: 10px;
-			}
-		</style>
-	`;
-
-	document.head.innerHTML = style +  document.head.innerHTML;
+	window.addEventListener("DOMContentLoaded", () => {
+		link = `<link rel="stylesheet" href="bv-timer.css">`;
+		document.head.insertAdjacentHTML("afterbegin", link);
+	})
 
 	class BVTimer extends HTMLElement{
   		constructor(){
@@ -23,6 +10,8 @@
 		}
 		connectedCallback(){
   			var odbrojavanje = this.#count_down.bind(this);
+			this.running = false;
+
 			if(!this.hasAttribute('interval')) this.interval = 1;
 			else this.IC = this.interval;
 
@@ -33,7 +22,10 @@
 			if(!this.hasAttribute('autostart')) this.autostart = false;
 			else this.autostart = true;
 
-			if(this.autostart == "true") this.myCountDown = setInterval(odbrojavanje, 1000);
+			if(this.autostart == "true"){ 
+				this.myCountDown = setInterval(odbrojavanje, 1000);
+				this.running = true;
+			};
 		}
 
 		static get observedAttributes() {
@@ -80,6 +72,7 @@
 			if(this.value <= 1){
 				clearInterval(this.myCountDown);
 				this.value = 0;
+				this.running = false;
 				if(this.hasAttribute('onTimeOut')) eval(this.getAttribute('onTimeOut'));
 				if(this.IC <= 1){
 					if(this.hasAttribute('onInterval')) eval(this.getAttribute('onInterval'));
@@ -99,12 +92,18 @@
 		}
 
 		play(){
-			var odbrojavanje = this.#count_down.bind(this);
-			this.myCountDown = setInterval(odbrojavanje, 1000);
+			if(!this.running){
+				var odbrojavanje = this.#count_down.bind(this);
+				this.myCountDown = setInterval(odbrojavanje, 1000);
+				this.running = true;
+			}
 		}
 
 		pause(){
-			clearInterval(this.myCountDown);
+			if(this.running){
+				clearInterval(this.myCountDown);
+				this.running = false;
+			}
 		}
 		timeOut(){
 			this.value = 1;

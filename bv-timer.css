@@ -1,0 +1,13 @@
+bv-timer{
+	display: inline-flex;
+    justify-content: center;
+    align-items: center;
+	height: 100px;
+	width: 100px;
+	box-sizing: border-box;
+	font-size: 30px;
+	border: 2px solid black;
+	text-align: center;
+	background-color: white;
+	padding: 10px;
+}
