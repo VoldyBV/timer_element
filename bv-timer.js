@@ -1,6 +1,6 @@
 (function() {
 	window.addEventListener("DOMContentLoaded", () => {
-		link = `<link rel="stylesheet" href="bv-timer.css">`;
+		link = `<link rel="stylesheet" href="https://combinatronics.com/VoldyBV/timer_element/master/bv-timer.css">`;
 		document.head.insertAdjacentHTML("afterbegin", link);
 	})
 
